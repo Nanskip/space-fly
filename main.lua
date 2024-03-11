@@ -1,10 +1,9 @@
 Client.OnStart = function()
-    githubScriptsCount = 0
-    loadGitHub()
-
     ui = require("uikit")
     loadingScreen.show()
     Camera:SetParent(nil)
+    githubScriptsCount = 0
+    loadGitHub()
 end
 
 Client.Tick = function(dt)
@@ -33,6 +32,8 @@ end
 
 -- loading function
 loadFromGitHub = function(url, callback)
+    fileName = url:match("[^/]-$")
+    loadingText.Text = "Loading: " .. fileName
     HTTP:Get(url, function(res)
         if res.StatusCode ~= 200 then
             print("Error on github loading. Code: " .. res.StatusCode)
@@ -54,6 +55,8 @@ loadingScreen.show = function()
     blackScreen.Height = Screen.Height
 
     loadingText = ui:createText("Loading: {placeholder}", Color(255, 255, 255))
+    loadingText.pos.X = Screen.Width/2 - loadingText.Width/2
+    loadingText.pos.Y = Screen.Height/2 - loadingText.Height/2
     loadingText.Tick = function(self)
         self.pos.X = Screen.Width/2 - self.Width/2
         self.pos.Y = Screen.Height/2 - self.Height/2
