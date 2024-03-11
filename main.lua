@@ -1,15 +1,17 @@
-Config.Map = "nanskip.red_voxel"
-
 Client.OnStart = function()
     githubScriptsCount = 0
     loadGitHub()
+
+    ui = require("uikit")
+    loadingScreen.show()
+    Camera:SetParent(nil)
 end
 
 Client.Tick = function(dt)
     deltaTime = 62/(1/dt)
     if githubScriptsCount == 2 then
         githubScriptsCount = nil
-
+        loadingScreen:hide()
         start()
     elseif githubScriptsCount == nil then
         tick()
@@ -41,4 +43,25 @@ loadFromGitHub = function(url, callback)
         githubScriptsCount = githubScriptsCount + 1
         callback(obj)
         end)
+end
+
+loadingScreen = {}
+
+loadingScreen.show = function()
+    blackScreen = ui:createFrame(Color(0, 0, 0))
+
+    blackScreen.Width = Screen.Width
+    blackScreen.Height = Screen.Height
+
+    loadingText = ui:createText("Loading: {placeholder}", Color(255, 255, 255))
+    loadingText.Tick = function(self)
+        self.pos.X = Screen.Width/2 - self.Width/2
+        self.pos.Y = Screen.Height/2 - self.Height/2
+    end
+end
+
+loadingScreen.hide = function(self)
+    blackScreen:setParent(nil) blackScreen = nil
+    loadingText:setParent(nil) loadingText.Tick = nil loadingText = nil
+    self = nil
 end
