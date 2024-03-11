@@ -1,5 +1,5 @@
 Modules = {
-    stars = "https://github.com/Nanskipp/space-fly"
+    stars = "github.com/Nanskipp/space-fly/stars"
 }
 
 Client.OnStart = function()
