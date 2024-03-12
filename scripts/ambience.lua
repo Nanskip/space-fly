@@ -28,8 +28,8 @@ stars = {}
 for i=1, 50 do
     star = Quad()
     star.Color = Color(255, 255, 255)
-    star.Scale = math.random(10, 30)/10
-    star.speed = math.random(10, 30)/10
+    star.Scale = math.random(10, 30)/30
+    star.speed = math.random(10, 30)/50
     star.Position = Number3(math.random(0, 50), 50 + math.random(0, 50), 0)
 
     star:SetParent(World)
@@ -40,6 +40,10 @@ for i=1, 50 do
         if self.Position.Y < -20 then
             self.Position.Y = 50 + math.random(0, 50)
             self.Position.X = math.random(0, 50)
+
+            star.Color = Color(255, 255, 255)
+            star.Scale = math.random(10, 30)/30
+            star.speed = math.random(10, 30)/50
         end
     end
 end
