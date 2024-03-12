@@ -25,7 +25,7 @@ require("ambience"):set({
 
 stars = {}
 
-for i=1, 50 do
+for i=1, 75 do
     star = Quad()
     star.Color = Color(255, 255, 255)
     star.Scale = math.random(10, 30)/30
@@ -41,9 +41,9 @@ for i=1, 50 do
             self.Position.Y = 50 + math.random(0, 50)
             self.Position.X = math.random(0, 50)
 
-            star.Color = Color(255, 255, 255)
-            star.Scale = math.random(10, 30)/30
-            star.speed = math.random(10, 30)/50
+            self.Color = Color(255, 255, 255)
+            self.Scale = math.random(10, 30)/30
+            self.speed = math.random(10, 30)/50
         end
     end
 end
