@@ -25,12 +25,12 @@ require("ambience"):set({
 
 stars = {}
 
-for i=1, 75 do
+for i=1, 150 do
     star = Quad()
     star.Color = Color(255, 255, 255)
 	star.Scale = math.random(5, 15)/30
 	star.speed = math.random(5, 15)/100
-    star.Position = Number3(math.random(0, 50), 50 + math.random(0, 50), 50)
+    star.Position = Number3(math.random(0, 50), math.random(0, 160), 50)
 
     star:SetParent(World)
     table.insert(stars, star)
