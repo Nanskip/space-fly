@@ -12,3 +12,4 @@ Screen.DidResize = function()
 end
 
 Pointer:Hide()
+spacecraft:create()
