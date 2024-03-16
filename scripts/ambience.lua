@@ -29,7 +29,7 @@ for i=1, 150 do
     star = Quad()
     star.Color = Color(255, 255, 255)
 	star.Scale = math.random(5, 15)/30
-	star.speed = math.random(5, 15)/100
+	star.speed = math.random(5, 15)/200
     star.Position = Number3(math.random(0, 50), math.random(0, 160), 50)
 
     star:SetParent(World)
@@ -43,7 +43,7 @@ for i=1, 150 do
 
             self.Color = Color(255, 255, 255)
             self.Scale = math.random(5, 15)/30
-            self.speed = math.random(5, 15)/100
+            self.speed = math.random(5, 15)/200
         end
     end
 end
