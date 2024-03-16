@@ -10,3 +10,5 @@ setAmbience()
 Screen.DidResize = function()
     Camera.FOV = math.max(math.min(40*((Screen.Width/Screen.Height+0.45)/0.9), 100), 60)*0.4
 end
+
+Pointer:Hide()
