@@ -11,4 +11,5 @@ Screen.DidResize = function()
     Camera.FOV = math.max(math.min(40*((Screen.Width/Screen.Height+0.45)/0.9), 100), 60)*0.4
 end
 
+Screen.DidResize() -- just to fit camera to screen on start
 spacecraft:create()
