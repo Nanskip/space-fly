@@ -10,13 +10,20 @@ spacecraft.create = function(self, config)
         firerate = 1,
         damage = 1,
         damageMultiplier = 1,
-        firerateMultiplier = 1
+        firerateMultiplier = 1,
+        upgrade = 1
     }
+    if self == nil then
+        error([[ERROR: Call function using ':'!]], 2)
+        return
+    end
 
     self.firerate = config.firerate or defaultConfig.firerate
     self.damage = config.damage or defaultConfig.damage
     self.damageMultiplier = config.damageMultiplier or defaultConfig.damageMultiplier
     self.firerateMultiplier = config.firerateMultiplier or defaultConfig.firerateMultiplier
+    self.upgrade = config.upgrade or defaultConfig.upgrade
+    self.shootTimer = 0
     
     Object:Load("nanskip.spacecraft", function(object)
         self.shape = object
@@ -29,10 +36,31 @@ spacecraft.create = function(self, config)
     self.Tick = function(self)
         self.rot:Slerp(self.rot, Rotation(-math.pi/2, 0, 0), 0.1)
         self.Rotation = self.rot
-        print(self.rotY)
     end
 
     self:SetParent(World)
+end
+
+spacecraft.shoot = function(self)
+    if self == nil then
+        error([[ERROR: Call function using ':'!]], 2)
+        return
+    end
+
+    local dmg = self.damage * self.damageMultiplier
+    if self.upgrade == 1 then
+        local pos = self.Position + Number3(0, 15, 0)
+        bullets.create(dmg, pos)
+    end
+end
+
+spacecraft.Tick = function(self)
+    self.shootTimer = self.shootTimer + 1
+
+    if self.shootTimer >= 60/self.firerate then
+        self.shootTimer = 0
+        self:shoot()
+    end
 end
 
 Pointer.Drag = function(pointerEvent)
