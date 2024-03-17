@@ -3,27 +3,26 @@ local bullets = {}
 bullets.create = function(dmg, pos)
     local bullet = Object()
 
-    Object:Load("nanskip.red_voxel", function(object)
-        bullet.shape = object
-        bullet.shape:SetParent(bullet)
-    end)
+    bullet.quad = Quad()
+    bullet.quad.Color = Color(0, 255, 0)
+    bullet.quad:SetParent(bullet)
+    bullet.quad.Scale.Y = 5
 
     bullet.destroy = function(self)
         self.Tick = nil
-        self.shape = nil
+        self.quad = nil
         self:SetParent(nil)
         self = nil
     end
 
     bullet.damage = dmg
-    bullet.Position = pos
+    bullet.Position = pos - Number3(0.5, -10, 0)
 
     bullet.Tick = function(self)
 
         self.Position.Y = self.Position.Y + 3
-        print(self.shape.Position)
 
-        if self.Position.Y >= 150 then
+        if self.Position.Y >= 200 then
             self:destroy()
         end
 

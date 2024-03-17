@@ -36,6 +36,13 @@ spacecraft.create = function(self, config)
     self.Tick = function(self)
         self.rot:Slerp(self.rot, Rotation(-math.pi/2, 0, 0), 0.1)
         self.Rotation = self.rot
+
+        self.shootTimer = self.shootTimer + 1
+
+        if self.shootTimer >= 60/self.firerate then
+            self.shootTimer = 0
+            self:shoot()
+        end
     end
 
     self:SetParent(World)
@@ -49,17 +56,58 @@ spacecraft.shoot = function(self)
 
     local dmg = self.damage * self.damageMultiplier
     if self.upgrade == 1 then
-        local pos = self.Position + Number3(0, 15, 0)
+        local pos = self.Position + Number3(0, -7, 1)
         bullets.create(dmg, pos)
     end
-end
-
-spacecraft.Tick = function(self)
-    self.shootTimer = self.shootTimer + 1
-
-    if self.shootTimer >= 60/self.firerate then
-        self.shootTimer = 0
-        self:shoot()
+    if self.upgrade == 2 then
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
+    end
+    if self.upgrade == 3 then
+        local pos = self.Position + Number3(0, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
+    end
+    if self.upgrade == 4 then
+        local pos = self.Position + Number3(-8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
+    end
+    if self.upgrade == 5 then
+        local pos = self.Position + Number3(0, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
+    end
+    if self.upgrade == 6 then
+        local pos = self.Position + Number3(-2, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(2, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
     end
 end
 
