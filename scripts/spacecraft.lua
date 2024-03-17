@@ -109,6 +109,23 @@ spacecraft.shoot = function(self)
         local pos = self.Position + Number3(4, -17, 3)
         bullets.create(dmg, pos)
     end
+    if self.upgrade >= 7 then
+        local pos = self.Position + Number3(0, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-2, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(2, -7, 1)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(8, -18, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(-4, -17, 3)
+        bullets.create(dmg, pos)
+        local pos = self.Position + Number3(4, -17, 3)
+        bullets.create(dmg, pos)
+        self.upgrade = 7
+    end
 end
 
 Pointer.Drag = function(pointerEvent)
