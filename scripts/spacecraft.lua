@@ -54,6 +54,22 @@ spacecraft.shoot = function(self)
         return
     end
 
+    local shootsound = AudioSource("laser_gun_shot_1")
+    shootsound:SetParent(Camera)
+    shootsound.Pitch = math.min(3, 2 + (self.firerate/20))
+    shootsound.timer = 0
+    shootsound:Play()
+    shootsound.Volume = 0.2
+    shootsound.Tick = function(self)
+        self.timer = self.timer + 1
+
+        if self.timer >= 100 then
+            self.Tick = nil
+            self:SetParent(nil)
+            self = nil
+        end
+    end
+
     local dmg = self.damage * self.damageMultiplier
     if self.upgrade == 1 then
         local pos = self.Position + Number3(0, -7, 1)
