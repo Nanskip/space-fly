@@ -10,6 +10,7 @@ bullets.create = function(dmg, pos)
 
     bullet.destroy = function(self)
         self.Tick = nil
+        self.quad:SetParent(nil)
         self.quad = nil
         self:SetParent(nil)
         self = nil

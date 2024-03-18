@@ -47,7 +47,7 @@ spacecraft.create = function(self, config)
 
         self.particleTimer = self.particleTimer + 1
 
-        if self.particleTimer >= 3 + math.random(0, 5) then
+        if self.particleTimer >= 0 + math.random(0, 5) then
             local ptScale = math.random(20, 30)/10
             local ptAlpha = math.random(200, 255)
 

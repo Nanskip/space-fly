@@ -59,7 +59,7 @@ for i=1, 200 do
     end
 end
 
-for i=1, 70 do
+for i=1, 10 do
 	local partScale = math.random(100, 1000)/10
 	local partColors = {Color(150, 0, 150, 1), Color(0, 0, 0, 1), Color(0, 0, 150, 1)}
 	local particle = particles.create({
