@@ -13,3 +13,8 @@ end
 
 Screen.DidResize() -- just to fit camera to screen on start
 spacecraft:create()
+
+Timer(20, true, function()
+    collectgarbage("collect")
+    --print("collected garbage!")
+end)

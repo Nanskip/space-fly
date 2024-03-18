@@ -10,7 +10,11 @@ particles.create = function(config)
         scale = Number3(1, 1, 1),
         timeToDestroy = 1,
         makesmaller = true,
-        makeinvisible = true
+        makeinvisible = true,
+        isUnlit = false,
+        tick = function(self)
+            -- do nothing
+        end
     }
 
     local particle = Object()
@@ -25,6 +29,8 @@ particles.create = function(config)
     particle.timeToDestroy = config.timeToDestroy or defaultConfig.timeToDestroy
     particle.makesmaller = config.makesmaller or defaultConfig.makesmaller
     particle.makeinvisible = config.makeinvisible or defaultConfig.makeinvisible
+    particle.isUnlit = config.isUnlit or defaultConfig.isUnlit
+    particle.tick = config.tick or defaultConfig.tick
     particle.timer = 0
 
     particle.load = function(self)
@@ -32,17 +38,15 @@ particles.create = function(config)
             self.shape = object
             self.shape:SetParent(self)
             self.shape.Palette[1].Color = self.color
+            self.shape.IsUnlit = self.isUnlit
         end)
     end
 
     particle.remove = function(self)
-        for i=1, #self.shape.Palette do
-            print("Found color #" .. i .. ":")
-            print(self.shape.Palette[i].Color)
+        if self.shape ~= nil then
+            self.shape:SetParent(nil)
+            self.shape = nil
         end
-
-        self.shape:SetParent(nil)
-        self.shape = nil
         self.Tick = nil
         self:SetParent(nil)
         self = nil
@@ -56,7 +60,11 @@ particles.create = function(config)
         end
         if self.makeinvisible == true then
             if self.shape ~= nil then
-                self.shape.Palette[1].Color.A = self.shape.Palette[1].Color.A - math.ceil(0.0166/self.timeToDestroy*255)
+                if self.shape.Palette[1].Color.A - math.floor(0.0166/self.timeToDestroy*255) > 0 then
+                    self.shape.Palette[1].Color.A = self.shape.Palette[1].Color.A - math.floor(0.0166/self.timeToDestroy*255)
+                end
+
+                if self.shape.Palette[1].Color.A < 255 and not self.shape.doreset then self.shape:RefreshModel() self.shape.doreset = true end
             end
         end
 
@@ -66,6 +74,8 @@ particles.create = function(config)
         if self.timer >= self.timeToDestroy*60 then
             self:remove()
         end
+
+        self:tick()
     end
     
     particle:load()

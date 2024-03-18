@@ -47,17 +47,18 @@ spacecraft.create = function(self, config)
 
         self.particleTimer = self.particleTimer + 1
 
-        if self.particleTimer >= 10 + math.random(0, 5) then
+        if self.particleTimer >= 3 + math.random(0, 5) then
+            local ptScale = math.random(20, 30)/10
+            local ptAlpha = math.random(200, 255)
+
             particles.create({
-                position = self.Position + Number3(0, -10, 3),
-                rotation = Rotation(0, 0, 0),
+                position = self.Position + Number3(0, -8, 1),
+                rotation = Rotation(math.random(-10, 10)/300, math.random(-10, 10)/300, math.random(-10, 10)/300),
                 constantMovementAcceleration = Number3(0, -0.2, 0),
-                constantRotationAcceleration = Rotation(0.1, 0.1, 0.1),
-                color = Color(232, 153, 49),
-                scale = Number3(2, 2, 2),
-                timeToDestroy = 0.5,
-                makesmaller = true,
-                makeinvisible = true
+                constantRotationAcceleration = Rotation(math.random(-10, 10)/500, math.random(-10, 10)/500, math.random(-10, 10)/500),
+                color = Color(232-math.random(0, 20), 153+math.random(0, 20), 49+math.random(0, 10), ptAlpha),
+                scale = Number3(ptScale, ptScale, ptScale),
+                isUnlit = true
             })
             self.particleTimer = 0
         end
