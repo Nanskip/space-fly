@@ -59,9 +59,9 @@ for i=1, 200 do
     end
 end
 
-for i=1, 70 do
+for i=1, 50 do
 	local partScale = math.random(100, 1000)/10
-	local partColors = {Color(150, 0, 150, 5), Color(0, 0, 0, 5), Color(0, 0, 150, 5)}
+	local partColors = {Color(150, 0, 150, 2), Color(0, 0, 0, 5), Color(0, 0, 150, 5)}
 	local particle = particles.create({
         position = Number3(math.random(-30, 80)- partScale/2, math.random(0, 150), 200),
         rotation = Rotation(math.random(-10, 10)/10, math.random(-10, 10)/10, math.random(-10, 10)/10),
