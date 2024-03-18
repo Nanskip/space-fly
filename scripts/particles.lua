@@ -18,6 +18,7 @@ particles.create = function(config)
     particle.Position = config.position or defaultConfig.position
     particle.Rotation = config.rotation or defaultConfig.rotation
     particle.color = config.color or defaultConfig.color
+    particle.baseScale = config.scale or defaultConfig.scale
     particle.Scale = config.scale or defaultConfig.scale
     particle.constantMovementAcceleration = config.constantMovementAcceleration or defaultConfig.constantMovementAcceleration
     particle.constantRotationAcceleration = config.constantRotationAcceleration or defaultConfig.constantRotationAcceleration
@@ -35,6 +36,11 @@ particles.create = function(config)
     end
 
     particle.remove = function(self)
+        for i=1, #self.shape.Palette do
+            print("Found color #" .. i .. ":")
+            print(self.shape.Palette[i].Color)
+        end
+
         self.shape:SetParent(nil)
         self.shape = nil
         self.Tick = nil
@@ -42,15 +48,15 @@ particles.create = function(config)
         self = nil
     end
 
-    particle.Tick = function(self)
+    particle.Tick = function(self, dt)
         self.timer = self.timer + 1
 
-        if self.makesmaller then
-            self.Scale = self.Scale - Number3(0.0166/self.timeToDestroy, 0.0166/self.timeToDestroy, 0.0166/self.timeToDestroy)
+        if self.makesmaller == true then
+            self.Scale = self.Scale - Number3(0.0166/self.timeToDestroy*self.baseScale.X, 0.0166/self.timeToDestroy*self.baseScale.Y, 0.0166/self.timeToDestroy*self.baseScale.Z)
         end
-        if self.makeinvisible then
+        if self.makeinvisible == true then
             if self.shape ~= nil then
-                self.shape.Palette[1].Color.A = self.shape.Palette[1].Color.A - 0.0166/self.timeToDestroy
+                self.shape.Palette[1].Color.A = self.shape.Palette[1].Color.A - math.ceil(0.0166/self.timeToDestroy*255)
             end
         end
 

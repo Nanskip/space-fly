@@ -14,7 +14,7 @@ spacecraft.create = function(self, config)
         upgrade = 1
     }
     if self == nil then
-        error([[ERROR: Call function using ':'!]], 2)
+        error([[ERROR: Call function using ':'!]], 3)
         return
     end
 
@@ -24,6 +24,7 @@ spacecraft.create = function(self, config)
     self.firerateMultiplier = config.firerateMultiplier or defaultConfig.firerateMultiplier
     self.upgrade = config.upgrade or defaultConfig.upgrade
     self.shootTimer = 0
+    self.particleTimer = 0
     
     Object:Load("nanskip.spacecraft", function(object)
         self.shape = object
@@ -43,14 +44,41 @@ spacecraft.create = function(self, config)
             self.shootTimer = 0
             self:shoot()
         end
+
+        self.particleTimer = self.particleTimer + 1
+
+        if self.particleTimer >= 10 + math.random(0, 5) then
+            particles.create({
+                position = self.Position + Number3(0, -10, 3),
+                rotation = Rotation(0, 0, 0),
+                constantMovementAcceleration = Number3(0, -0.2, 0),
+                constantRotationAcceleration = Rotation(0.1, 0.1, 0.1),
+                color = Color(232, 153, 49),
+                scale = Number3(2, 2, 2),
+                timeToDestroy = 0.5,
+                makesmaller = true,
+                makeinvisible = true
+            })
+            self.particleTimer = 0
+        end
     end
 
     self:SetParent(World)
 end
 
+spacecraft.remove = function(self)
+    if self == nil then
+        error([[ERROR: Call function using ':'!]], 3)
+        return
+    end
+
+    self:SetParent(nil)
+    self.Tick = nil
+end
+
 spacecraft.shoot = function(self)
     if self == nil then
-        error([[ERROR: Call function using ':'!]], 2)
+        error([[ERROR: Call function using ':'!]], 3)
         return
     end
 
@@ -59,7 +87,7 @@ spacecraft.shoot = function(self)
     shootsound.Pitch = math.min(3, 2 + (self.firerate/20))
     shootsound.timer = 0
     shootsound:Play()
-    shootsound.Volume = 0.2
+    shootsound.Volume = 0.2 + self.upgrade/30
     shootsound.Tick = function(self)
         self.timer = self.timer + 1
 
@@ -150,7 +178,7 @@ Pointer.Drag = function(pointerEvent)
     spacecraft.Position.X = math.max(0, math.min(spacecraft.Position.X + dx*0.1, 50))
     spacecraft.Position.Y = math.max(10, math.min(spacecraft.Position.Y + dy*0.1, 100))
 
-    spacecraft.rot:Slerp(spacecraft.rot, Rotation(-math.pi/2, math.min(1, math.max(-1, -dx*0.1)), 0), 0.5)
+    spacecraft.rot:Slerp(spacecraft.rot, Rotation(-math.pi/2, math.min(1, math.max(-1, -dx*0.1)), 0), 0.2)
 end
 Client.DirectionalPad = nil
 
