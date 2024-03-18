@@ -28,8 +28,8 @@ if stars == nil then
 end
 
 for i=1, #stars do
-	stars[i]:SetParent(nil)
 	stars[i].Tick = nil
+	stars[i]:SetParent(nil)
 	stars[i] = nil
 end
 
@@ -59,11 +59,11 @@ for i=1, 200 do
     end
 end
 
-for i=1, 10 do
+for i=1, 70 do
 	local partScale = math.random(100, 1000)/10
-	local partColors = {Color(150, 0, 150, 1), Color(0, 0, 0, 1), Color(0, 0, 150, 1)}
+	local partColors = {Color(150, 0, 150, 5), Color(0, 0, 0, 5), Color(0, 0, 150, 5)}
 	local particle = particles.create({
-        position = Number3(math.random(-30, 80), math.random(0, 150), 200),
+        position = Number3(math.random(-30, 80)- partScale/2, math.random(0, 150), 200),
         rotation = Rotation(math.random(-10, 10)/10, math.random(-10, 10)/10, math.random(-10, 10)/10),
         constantMovementAcceleration = Number3(0, -math.random(1, 10)/20, 0),
         constantRotationAcceleration = Number3(math.random(-10, 10)/50, math.random(-10, 10)/50, math.random(-10, 10)/50),
@@ -73,9 +73,10 @@ for i=1, 10 do
         makesmaller = false,
         makeinvisible = false,
         isUnlit = true,
+		isQuad = true,
 		tick = function(self)
 			if self.Position.Y < -100 then
-				self.Position = Number3(math.random(-30, 80), 200+math.random(0, 100), 200)
+				self.Position = Number3(math.random(-30, 80)- partScale/2, 200+math.random(0, 100), 200)
 			end
 		end
     })

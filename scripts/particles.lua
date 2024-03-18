@@ -12,6 +12,7 @@ particles.create = function(config)
         makesmaller = true,
         makeinvisible = true,
         isUnlit = false,
+        isQuad = false,
         tick = function(self)
             -- do nothing
         end
@@ -31,21 +32,33 @@ particles.create = function(config)
     particle.makeinvisible = config.makeinvisible or defaultConfig.makeinvisible
     particle.isUnlit = config.isUnlit or defaultConfig.isUnlit
     particle.tick = config.tick or defaultConfig.tick
+    particle.isQuad = config.isQuad or defaultConfig.isQuad
     particle.timer = 0
 
     particle.load = function(self)
-        Object:Load("nanskip.red_voxel", function(object)
-            self.shape = object
-            self.shape:SetParent(self)
-            self.shape.Palette[1].Color = self.color
-            self.shape.IsUnlit = self.isUnlit
-        end)
+        if not self.isQuad then
+            Object:Load("nanskip.red_voxel", function(object)
+                self.shape = object
+                self.shape:SetParent(self)
+                self.shape.Palette[1].Color = self.color
+                self.shape.IsUnlit = self.isUnlit
+            end)
+        elseif self.isQuad then
+            self.quad = Quad()
+            self.quad:SetParent(self)
+            self.quad.Color = self.color
+            self.quad.IsUnlit = self.isUnlit
+        end
     end
 
     particle.remove = function(self)
         if self.shape ~= nil then
             self.shape:SetParent(nil)
             self.shape = nil
+        end
+        if self.quad ~= nil then
+            self.quad:SetParent(nil)
+            self.quad = nil
         end
         self.Tick = nil
         self:SetParent(nil)
@@ -65,6 +78,11 @@ particles.create = function(config)
                 end
 
                 if self.shape.Palette[1].Color.A < 255 and not self.shape.doreset then self.shape:RefreshModel() self.shape.doreset = true end
+            end
+            if self.quad ~= nil then
+                if self.quad.Color.A - math.floor(0.0166/self.timeToDestroy*255) > 0 then
+                    self.quad.Color.A = self.quad.Color.A - math.floor(0.0166/self.timeToDestroy*255)
+                end
             end
         end
 
