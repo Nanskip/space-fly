@@ -7,6 +7,8 @@ bullets.create = function(dmg, pos)
     bullet.quad.Color = Color(0, 255, 0)
     bullet.quad:SetParent(bullet)
     bullet.quad.Scale.Y = 5
+    bullet.quad.Physics = PhysicsMode.Trigger
+    bullet.quad.CollisionGroups = {1, 2, 3}
 
     bullet.destroy = function(self)
         self.Tick = nil
@@ -27,6 +29,17 @@ bullets.create = function(dmg, pos)
             self:destroy()
         end
 
+    end
+
+    bullet.quad.OnCollisionBegin = function(self, other)
+        local selfparent = self:GetParent()
+        local otherparent = other:GetParent()
+        if selfparent.damage ~= nil and otherparent.health ~= nil then
+            if otherparent.isEnemy then
+                otherparent.health = otherparent.health - selfparent.damage
+                selfparent:destroy()
+            end
+        end
     end
     
     bullet:SetParent(World)
