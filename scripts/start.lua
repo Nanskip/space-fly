@@ -13,3 +13,5 @@ end
 
 Screen.DidResize() -- just to fit camera to screen on start
 spacecraft:create()
+ui = require("uikit")
+hud.init()
