@@ -58,7 +58,7 @@ for i=1, 200 do
         end
     end
 end
-
+--[[
 for i=1, 50 do
 	local partScale = math.random(100, 1000)/10
 	local partColors = {Color(150, 0, 150, 2), Color(0, 0, 0, 5), Color(0, 0, 150, 5)}
@@ -81,3 +81,4 @@ for i=1, 50 do
 		end
     })
 end
+]]--
