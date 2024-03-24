@@ -45,7 +45,7 @@ loadGitHub = function()
     end)
     loadFromGitHub("https://raw.githubusercontent.com/Nanskipp/space-fly/main/scripts/enemies.lua",
     function(obj)
-        particles = obj()
+        enemies = obj()
     end)
 end
 
