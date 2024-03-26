@@ -58,3 +58,4 @@ restart = function()
         end
     end
 end
+restart()
