@@ -98,7 +98,7 @@ enemies.create = function(config)
         if self.health <= 0 then self:remove() end
 
         if self.text ~= nil then
-            self.text.Position = self.Position + Number3(0, 0, -4)
+            self.text.Position = self.Position + Number3(0, 0, -4*self.Scale.Z)
             self.text.Rotation = Rotation(0, 0, 0)
             self.text.Text = self.health
         end
