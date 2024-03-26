@@ -52,8 +52,6 @@ restart = function()
         for i=1, #enemiesTable do
             enemiesTable[i]:remove()
             enemiesTable[i] = nil
-
-            table.sort(enemiesTable)
         end
     end
 end

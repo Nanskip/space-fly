@@ -90,6 +90,8 @@ enemies.create = function(config)
         self.Tick = nil
         self:SetParent(nil)
         self = nil
+
+        globalTimer = globalTimer - + 60*5
     end
 
     enemy.Tick = function(self)
