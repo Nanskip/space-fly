@@ -5,9 +5,13 @@ Camera:SetParent(World)
 Camera:SetModeFree()
 Camera.Position = Number3(25, 55, -100)
 Camera.Rotation = Number3(0, 0, 0)
+globalTimer = 0
 setAmbience()
+enemyCount = 0
+roundCount = 1
+randScaleMultiplier = 1
+randHealthMultiplier = 0
 
-spacecraft:create()
 ui = require("uikit")
 hud.init()
 hud.update()
@@ -20,6 +24,7 @@ Screen.DidResize() -- just to fit camera to screen on start
 
 restart = function()
     hud.restartButton = ui:createButton("Start game")
+    gameOn = false
 
     hud.restartButton.pos.X = Screen.Width/2 - hud.restartButton.Width/2
     hud.restartButton.pos.Y = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
@@ -27,6 +32,11 @@ restart = function()
         hud.restartButton:setParent(nil)
         hud.restartButton = nil
 
+        gameOn = true
+
+        roundCount = 1
+        randScaleMultiplier = 1
+        randHealthMultiplier = 0
         spacecraft.firerate = 1
         spacecraft.damage = 1
         spacecraft.damageMultiplier = 1
