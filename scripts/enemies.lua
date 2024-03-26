@@ -83,8 +83,10 @@ enemies.create = function(config)
             bonus.create("upgrade", self.Position)
         end
 
-        self.text:SetParent(nil)
-        self.text = nil
+        if self.text ~= nil then
+            self.text:SetParent(nil)
+            self.text = nil
+        end
         self.Tick = nil
         self:SetParent(nil)
         self = nil

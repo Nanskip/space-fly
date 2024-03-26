@@ -11,6 +11,7 @@ enemyCount = 0
 roundCount = 1
 randScaleMultiplier = 1
 randHealthMultiplier = 0
+enemiesTable = {}
 
 ui = require("uikit")
 hud.init()
@@ -47,5 +48,12 @@ restart = function()
         spacecraft.gotDamage = false
         spacecraft.health = 3
         spacecraft:create()
+
+        for i=1, #enemiesTable do
+            enemiesTable[i]:remove()
+            enemiesTable[i] = nil
+
+            table.sort(enemiesTable)
+        end
     end
 end
