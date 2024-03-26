@@ -7,10 +7,16 @@ Camera.Position = Number3(25, 55, -100)
 Camera.Rotation = Number3(0, 0, 0)
 setAmbience()
 
+spacecraft:create()
+ui = require("uikit")
+hud.init()
+hud.update()
+
 Screen.DidResize = function()
     Camera.FOV = math.max(math.min(40*((Screen.Width/Screen.Height+0.45)/0.9), 100), 60)*0.4
     hud.update()
 end
+Screen.DidResize() -- just to fit camera to screen on start
 
 restart = function()
     hud.restartButton = ui:createButton("Start game")
@@ -33,9 +39,3 @@ restart = function()
         spacecraft:create()
     end
 end
-
-Screen.DidResize() -- just to fit camera to screen on start
-spacecraft:create()
-ui = require("uikit")
-hud.init()
-hud.update()
