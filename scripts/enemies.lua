@@ -30,6 +30,19 @@ enemies.create = function(config)
             self.shape.Palette[1].Color = self.color
             self.shape.Physics = PhysicsMode.Trigger
             self.shape.CollisionGroups = {1, 2, 3}
+
+            self.shape.OnCollisionBegin = function(self, other)
+                local selfparent = self:GetParent()
+                local otherparent = other:GetParent()
+
+                if otherparent.isSpacecraft then
+                    if not otherparent.gotDamage then
+                        otherparent:doDamage()
+
+                        selfparent:remove()
+                    end
+                end
+            end
         end)
     end
     enemy:load()
@@ -57,6 +70,16 @@ enemies.create = function(config)
                 scale = Number3(3, 3, 3),
                 timeToDestroy = 1
             })
+        end
+
+        local rand = math.random(1, 50)
+
+        if rand == 1 or rand == 2 then
+            bonus.create("damage", self.Position)
+        elseif rand == 3 or rand == 4 then
+            bonus.create("firerate", self.Position)
+        elseif rand == 5 then
+            bonus.create("upgrade", self.Position)
         end
 
         self.text:SetParent(nil)

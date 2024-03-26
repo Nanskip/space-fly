@@ -9,9 +9,33 @@ setAmbience()
 
 Screen.DidResize = function()
     Camera.FOV = math.max(math.min(40*((Screen.Width/Screen.Height+0.45)/0.9), 100), 60)*0.4
+    hud.update()
+end
+
+restart = function()
+    hud.restartButton = ui:createButton("Start game")
+
+    hud.restartButton.pos.X = Screen.Width/2 - hud.restartButton.Width/2
+    hud.restartButton.pos.X = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
+    hud.restartButton.onPress = function()
+        hud.restartButton:setParent(nil)
+        hud.restartButton = nil
+
+        spacecraft.firerate = 1
+        spacecraft.damage = 1
+        spacecraft.damageMultiplier = 1
+        spacecraft.firerateMultiplier = 1
+        spacecraft.isSpacecraft = true
+        spacecraft.dmgTimer = 0
+        spacecraft.dmgTimer2 = 0
+        spacecraft.gotDamage = false
+        spacecraft.health = 3
+        spacecraft:create()
+    end
 end
 
 Screen.DidResize() -- just to fit camera to screen on start
 spacecraft:create()
 ui = require("uikit")
 hud.init()
+hud.update()
