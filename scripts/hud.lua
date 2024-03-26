@@ -23,7 +23,7 @@ hud.update = function()
 
     if hud.restartButton ~= nil then
         hud.restartButton.pos.X = Screen.Width/2 - hud.restartButton.Width/2
-        hud.restartButton.pos.X = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
+        hud.restartButton.pos.Y = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
     end
 end
 

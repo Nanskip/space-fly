@@ -22,7 +22,7 @@ restart = function()
     hud.restartButton = ui:createButton("Start game")
 
     hud.restartButton.pos.X = Screen.Width/2 - hud.restartButton.Width/2
-    hud.restartButton.pos.X = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
+    hud.restartButton.pos.Y = Screen.Height/2 - hud.restartButton.Height/2 - Screen.SafeArea.Top + Screen.SafeArea.Bottom
     hud.restartButton.onPress = function()
         hud.restartButton:setParent(nil)
         hud.restartButton = nil
