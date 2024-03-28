@@ -18,6 +18,7 @@ spacecraft.create = function(self, config)
         firerateMultiplier = 1,
         upgrade = 1
     }
+    spacecraft:remove()
     if self == nil then
         error([[ERROR: Call function using ':'!]], 3)
         return
