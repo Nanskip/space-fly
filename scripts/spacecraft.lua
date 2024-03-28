@@ -105,8 +105,10 @@ spacecraft.remove = function(self)
         return
     end
 
-    self.shape:SetParent(nil)
-    self.shape = nil
+    if self.shape ~= nil then
+        self.shape:SetParent(nil)
+        self.shape = nil
+    end
     self:SetParent(nil)
     self.Tick = nil
 end
