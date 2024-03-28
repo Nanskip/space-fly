@@ -50,8 +50,10 @@ restart = function()
         spacecraft:create()
 
         for i=1, #enemiesTable do
-            enemiesTable[i]:remove()
-            enemiesTable[i] = nil
+            if enemiesTable[i] ~= nil then
+                enemiesTable[i]:remove()
+                enemiesTable[i] = nil
+            end
         end
     end
 end
