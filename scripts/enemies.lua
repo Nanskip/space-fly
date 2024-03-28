@@ -116,7 +116,7 @@ enemies.spawn = function(count)
         enemies.create({
             position = Number3(math.random(5, 45), 110 + math.random(0, 20), 45),
             rotation = Rotation(0, 0, 0),
-            constantMovementAcceleration = Number3(0, math.random(5, 15)*-0.01, 0),
+            constantMovementAcceleration = Number3(0, math.random(5, 15)*-0.003, 0),
             constantRotationAcceleration = Rotation(math.random(0, 20)*0.001, math.random(0, 20)*0.001, math.random(0, 20)*0.001),
             color = Color(math.random(0, 100)*0.01, math.random(0, 100)*0.01, math.random(0, 100)*0.01, 1.0),
             scale = Number3(1*randScaleMultiplier, 1*randScaleMultiplier, 1*randScaleMultiplier),
