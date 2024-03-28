@@ -39,26 +39,28 @@ bonus.create = function(type, pos)
     end
     if type == "damage" then
         Object:Load("nanskip.spacecraft_damage", function(object)
-            object:SetParent(World)
-            object.Position = pos
+            if pos ~= nil then
+                object:SetParent(World)
+                object.Position = pos
 
-            object.Tick = function(self)
-                self.Position = self.Position + Number3(0, -0.1, 0)
-                self.Rotation.Y = self.Rotation.Y + 0.01
-            end
+                object.Tick = function(self)
+                    self.Position = self.Position + Number3(0, -0.1, 0)
+                    self.Rotation.Y = self.Rotation.Y + 0.01
+                end
 
-            object.remove = function(self)
-                self.Tick = nil
-                self:SetParent(nil)
-                self = nil
-            end
+                object.remove = function(self)
+                    self.Tick = nil
+                    self:SetParent(nil)
+                    self = nil
+                end
 
-            object.OnCollisionBegin = function(self, other)
-                local otherparent = other:GetParent()
+                object.OnCollisionBegin = function(self, other)
+                    local otherparent = other:GetParent()
 
-                if otherparent.isSpacecraft then
-                    otherparent.damage = otherparent.damage + 1
-                    self:remove()
+                    if otherparent.isSpacecraft then
+                        otherparent.damage = otherparent.damage + 1
+                        self:remove()
+                    end
                 end
             end
         end)

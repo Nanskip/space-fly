@@ -8,7 +8,7 @@ end
 
 Client.Tick = function(dt)
     deltaTime = 62/(1/dt)
-    if githubScriptsCount == 8 then
+    if githubScriptsCount == 9 then
         loadingScreen:hide()
         start()
         githubScriptsCount = nil
@@ -46,6 +46,10 @@ loadGitHub = function()
     loadFromGitHub("https://raw.githubusercontent.com/Nanskipp/space-fly/main/scripts/enemies.lua",
     function(obj)
         enemies = obj()
+    end)
+    loadFromGitHub("https://raw.githubusercontent.com/Nanskipp/space-fly/main/scripts/bonus.lua",
+    function(obj)
+        bonus = obj()
     end)
     loadFromGitHub("https://raw.githubusercontent.com/Nanskipp/space-fly/main/scripts/hud.lua",
     function(obj)
