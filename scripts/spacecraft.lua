@@ -231,7 +231,7 @@ Pointer.Drag = function(pointerEvent)
     spacecraft.Position.X = math.max(0, math.min(spacecraft.Position.X + dx*0.1, 50))
     spacecraft.Position.Y = math.max(10, math.min(spacecraft.Position.Y + dy*0.1, 100))
 
-    if spacecraft ~= nil then
+    if spacecraft.rot ~= nil then
         spacecraft.rot:Slerp(spacecraft.rot, Rotation(-math.pi/2, math.min(1, math.max(-1, -dx*0.1)), 0), 0.2)
     end
 end
