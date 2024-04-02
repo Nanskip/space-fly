@@ -120,7 +120,7 @@ enemies.spawn = function(count)
             constantRotationAcceleration = Rotation(math.random(0, 20)*0.001, math.random(0, 20)*0.001, math.random(0, 20)*0.001),
             color = Color(math.random(0, 100)*0.01, math.random(0, 100)*0.01, math.random(0, 100)*0.01, 1.0),
             scale = Number3(1*randScaleMultiplier, 1*randScaleMultiplier, 1*randScaleMultiplier),
-            health = 10+randHealthMultiplier
+            health = 4+randHealthMultiplier
         })
     end
 end
