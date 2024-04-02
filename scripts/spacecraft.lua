@@ -9,6 +9,7 @@ spacecraft.dmgTimer = 0
 spacecraft.dmgTimer2 = 0
 spacecraft.gotDamage = false
 spacecraft.health = 3
+spacecraft.rot = Rotation(-math.pi/2, 0, 0)
 
 spacecraft.create = function(self, config)
     local defaultConfig = {
