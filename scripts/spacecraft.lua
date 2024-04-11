@@ -60,9 +60,9 @@ spacecraft.create = function(self, config)
             self.ptAlpha = math.random(100, 255)
 
             particles.create({
-                position = self.Position + Number3(0, -8, 1),
+                position = self.Position + Number3(0, 0, 1) + self.Backward*8,
                 rotation = Rotation(math.random(-10, 10)/300, math.random(-10, 10)/300, math.random(-10, 10)/300),
-                constantMovementAcceleration = Number3(math.random(-5, 5)*0.01, -0.2, 0),
+                constantMovementAcceleration = math.random(-5, 5)*0.01*self.Right + self.Backward*0.2,
                 constantRotationAcceleration = Rotation(math.random(-10, 10)/500, math.random(-10, 10)/500, math.random(-10, 10)/500),
                 color = Color(232-math.random(0, 50), 153+math.random(0, 50), 49+math.random(0, 20), self.ptAlpha),
                 scale = Number3(self.ptScale, self.ptScale, self.ptScale),
